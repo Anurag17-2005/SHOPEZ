@@ -3,10 +3,11 @@
 A full-stack MERN application for online shopping with user authentication, product catalog, cart management, and order processing. Built following MVC architecture with comprehensive API documentation.
 
 ## Tech Stack
-- **Client**: React.js, React Router, Axios, Bootstrap
+- **Client**: React 18 + Vite, React Router, Axios, Bootstrap 5
 - **Server**: Node.js, Express.js, MongoDB Atlas
 - **Authentication**: JWT, bcrypt
 - **Validation**: express-validator
+- **Build Tool**: Vite (migrated from Create React App)
 
 ## Features
 
@@ -105,10 +106,12 @@ npm install
 
 3. Start the development server:
 ```bash
-npm start
+npm run dev
 ```
 
 Client will run on `http://localhost:3000`
+
+> Note: This project uses Vite for faster development and build times.
 
 ## API Documentation
 
@@ -256,7 +259,7 @@ npm run dev  # Uses nodemon for auto-restart
 ### Client Development
 ```bash
 cd client
-npm start  # React development server
+npm run dev  # Vite development server with HMR
 ```
 
 ## Production Build
