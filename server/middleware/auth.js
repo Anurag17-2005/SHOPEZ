@@ -31,7 +31,7 @@ const auth = (req, res, next) => {
 
 // Admin authorization middleware
 const adminAuth = (req, res, next) => {
-  if (req.user.usertype !== 'ADMIN') {
+  if (req.user.role !== 'ADMIN') {
     return res.status(403).json({ 
       message: 'Access denied. Admin privileges required.',
       error: 'FORBIDDEN'

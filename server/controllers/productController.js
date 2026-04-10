@@ -7,7 +7,7 @@ exports.getAllProducts = async (req, res) => {
     let query = {};
     
     if (category) query.category = category;
-    if (search) query.name = { $regex: search, $options: 'i' };
+    if (search) query.title = { $regex: search, $options: 'i' };
     
     const products = await Product.find(query);
     res.json(products);

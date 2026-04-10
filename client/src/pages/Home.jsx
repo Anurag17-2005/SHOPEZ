@@ -32,7 +32,7 @@ function Home() {
       } else if (sortBy === 'rating') {
         sortedProducts.sort((a, b) => b.rating - a.rating);
       } else if (sortBy === 'name') {
-        sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+        sortedProducts.sort((a, b) => a.title.localeCompare(b.title));
       }
       
       setProducts(sortedProducts);
@@ -97,46 +97,18 @@ function Home() {
                 <div style={{ position: 'relative' }}>
                   <Card.Img 
                     variant="top" 
-                    src={product.image} 
+                    src={product.mainImg} 
                     style={{ height: '200px', objectFit: 'cover', cursor: 'pointer' }}
                     onClick={() => navigate(`/product/${product._id}`)}
                   />
-                  {product.stock === 0 && (
-                    <div style={{
-                      position: 'absolute',
-                      top: '10px',
-                      right: '10px',
-                      background: 'red',
-                      color: 'white',
-                      padding: '5px 10px',
-                      borderRadius: '5px',
-                      fontWeight: 'bold'
-                    }}>
-                      Out of Stock
-                    </div>
-                  )}
-                  {product.stock > 0 && product.stock < 10 && (
-                    <div style={{
-                      position: 'absolute',
-                      top: '10px',
-                      right: '10px',
-                      background: 'orange',
-                      color: 'white',
-                      padding: '5px 10px',
-                      borderRadius: '5px',
-                      fontSize: '12px'
-                    }}>
-                      Only {product.stock} left
-                    </div>
-                  )}
                 </div>
                 <Card.Body className="d-flex flex-column">
-                  <Card.Title>{product.name}</Card.Title>
+                  <Card.Title>{product.title}</Card.Title>
                   <Card.Text className="text-muted small">{product.category}</Card.Text>
                   <Card.Text className="flex-grow-1">{product.description.substring(0, 80)}...</Card.Text>
                   <div className="mb-2">
-                    <span className="text-warning">{'⭐'.repeat(Math.round(product.rating))}</span>
-                    <span className="text-muted ms-2">({product.rating.toFixed(1)})</span>
+                    <span className="text-warning">{'⭐'.repeat(Math.round(product.rating || 0))}</span>
+                    <span className="text-muted ms-2">({(product.rating || 0).toFixed(1)})</span>
                   </div>
                   <div className="d-flex justify-content-between align-items-center mt-auto">
                     <h5 className="text-primary mb-0">${product.price}</h5>
@@ -156,7 +128,6 @@ function Home() {
                           addToCart(product);
                           alert('Added to cart!');
                         }}
-                        disabled={product.stock === 0}
                       >
                         Add to Cart
                       </Button>

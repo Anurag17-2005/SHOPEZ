@@ -81,30 +81,26 @@ function ProductDetail() {
       <Row>
         <Col md={6}>
           <img 
-            src={product.image} 
-            alt={product.name} 
+            src={product.mainImg} 
+            alt={product.title} 
             className="img-fluid rounded" 
             style={{ width: '100%', maxHeight: '500px', objectFit: 'cover' }}
           />
         </Col>
         <Col md={6}>
-          <h2>{product.name}</h2>
+          <h2>{product.title}</h2>
           <div className="mb-3">
-            <span className="text-warning fs-5">{'⭐'.repeat(Math.round(product.rating))}</span>
+            <span className="text-warning fs-5">{'⭐'.repeat(Math.round(product.rating || 0))}</span>
             <span className="text-muted ms-2">
-              {product.rating.toFixed(1)} ({product.reviews.length} reviews)
+              {(product.rating || 0).toFixed(1)} ({product.reviews?.length || 0} reviews)
             </span>
           </div>
           <h3 className="text-primary mb-3">${product.price}</h3>
           <p className="text-muted">Category: <strong>{product.category}</strong></p>
           
-          {product.stock > 0 ? (
-            <p className="text-success">
-              ✓ In Stock ({product.stock} available)
-            </p>
-          ) : (
-            <p className="text-danger">✗ Out of Stock</p>
-          )}
+          <p className="text-success">
+            ✓ In Stock
+          </p>
           
           <p className="lead">{product.description}</p>
           
@@ -113,7 +109,6 @@ function ProductDetail() {
             <Form.Control
               type="number"
               min="1"
-              max={product.stock}
               value={quantity}
               onChange={(e) => setQuantity(parseInt(e.target.value))}
             />
@@ -124,9 +119,8 @@ function ProductDetail() {
               variant="primary" 
               size="lg"
               onClick={handleAddToCart}
-              disabled={product.stock === 0}
             >
-              {product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
+              Add to Cart
             </Button>
             <Button 
               variant="outline-secondary" 
@@ -154,14 +148,14 @@ function ProductDetail() {
                   >
                     <Card.Img 
                       variant="top" 
-                      src={p.image} 
+                      src={p.mainImg} 
                       style={{ height: '150px', objectFit: 'cover' }}
                     />
                     <Card.Body>
-                      <Card.Title>{p.name}</Card.Title>
+                      <Card.Title>{p.title}</Card.Title>
                       <div className="d-flex justify-content-between align-items-center">
                         <h5 className="text-primary mb-0">${p.price}</h5>
-                        <span className="text-warning">⭐ {p.rating.toFixed(1)}</span>
+                        <span className="text-warning">⭐ {(p.rating || 0).toFixed(1)}</span>
                       </div>
                     </Card.Body>
                   </Card>
@@ -174,8 +168,8 @@ function ProductDetail() {
 
       <Row className="mt-5">
         <Col>
-          <h4>Customer Reviews ({product.reviews.length})</h4>
-          {product.reviews.length === 0 ? (
+          <h4>Customer Reviews ({product.reviews?.length || 0})</h4>
+          {!product.reviews || product.reviews.length === 0 ? (
             <p className="text-muted">No reviews yet. Be the first to review!</p>
           ) : (
             product.reviews.map((r, idx) => (

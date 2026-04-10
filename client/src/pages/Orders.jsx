@@ -53,7 +53,7 @@ function Orders() {
                 <td>
                   {order.items.map((item, idx) => (
                     <div key={idx}>
-                      {item.product?.name} x {item.quantity}
+                      {item.product?.title} x {item.quantity}
                     </div>
                   ))}
                 </td>

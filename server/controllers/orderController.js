@@ -15,10 +15,6 @@ exports.createOrder = async (req, res) => {
         return res.status(404).json({ message: `Product ${item.productId} not found` });
       }
       
-      if (product.stock < item.quantity) {
-        return res.status(400).json({ message: `Insufficient stock for ${product.name}` });
-      }
-      
       orderItems.push({
         product: product._id,
         quantity: item.quantity,
@@ -26,10 +22,6 @@ exports.createOrder = async (req, res) => {
       });
       
       totalAmount += product.price * item.quantity;
-      
-      // Update stock
-      product.stock -= item.quantity;
-      await product.save();
     }
     
     const order = new Order({

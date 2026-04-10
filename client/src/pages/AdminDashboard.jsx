@@ -10,7 +10,7 @@ function AdminDashboard() {
   const [showModal, setShowModal] = useState(false);
   const [editProduct, setEditProduct] = useState(null);
   const [formData, setFormData] = useState({
-    name: '', description: '', price: '', category: '', stock: '', image: ''
+    title: '', description: '', price: '', category: '', mainImg: ''
   });
 
   useEffect(() => {
@@ -66,7 +66,7 @@ function AdminDashboard() {
       }
       setShowModal(false);
       setEditProduct(null);
-      setFormData({ name: '', description: '', price: '', category: '', stock: '', image: '' });
+      setFormData({ title: '', description: '', price: '', category: '', mainImg: '' });
       fetchProducts();
     } catch (err) {
       alert('Failed to save product');
@@ -146,20 +146,18 @@ function AdminDashboard() {
           <Table striped bordered hover>
             <thead>
               <tr>
-                <th>Name</th>
+                <th>Title</th>
                 <th>Category</th>
                 <th>Price</th>
-                <th>Stock</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
               {products.map(product => (
                 <tr key={product._id}>
-                  <td>{product.name}</td>
+                  <td>{product.title}</td>
                   <td>{product.category}</td>
                   <td>${product.price}</td>
-                  <td>{product.stock}</td>
                   <td>
                     <Button size="sm" variant="warning" className="me-2" onClick={() => handleEditProduct(product)}>
                       Edit
@@ -242,11 +240,11 @@ function AdminDashboard() {
         <Modal.Body>
           <Form onSubmit={handleProductSubmit}>
             <Form.Group className="mb-3">
-              <Form.Label>Name</Form.Label>
+              <Form.Label>Title</Form.Label>
               <Form.Control
                 type="text"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                value={formData.title}
+                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 required
               />
             </Form.Group>
@@ -285,20 +283,11 @@ function AdminDashboard() {
               </Form.Select>
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Stock</Form.Label>
-              <Form.Control
-                type="number"
-                value={formData.stock}
-                onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
-                required
-              />
-            </Form.Group>
-            <Form.Group className="mb-3">
               <Form.Label>Image URL</Form.Label>
               <Form.Control
                 type="text"
-                value={formData.image}
-                onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                value={formData.mainImg}
+                onChange={(e) => setFormData({ ...formData, mainImg: e.target.value })}
                 placeholder="https://example.com/image.jpg"
               />
             </Form.Group>

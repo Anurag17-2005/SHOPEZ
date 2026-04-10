@@ -14,10 +14,10 @@ const validate = (req, res, next) => {
 
 // User registration validation
 const registerValidation = [
-  body('username')
+  body('name')
     .trim()
-    .notEmpty().withMessage('Username is required')
-    .isLength({ min: 2 }).withMessage('Username must be at least 2 characters'),
+    .notEmpty().withMessage('Name is required')
+    .isLength({ min: 2 }).withMessage('Name must be at least 2 characters'),
   body('email')
     .trim()
     .notEmpty().withMessage('Email is required')

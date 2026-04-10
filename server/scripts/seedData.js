@@ -128,20 +128,20 @@ async function seedDatabase() {
     // Create admin user
     const adminPassword = await bcrypt.hash('admin123', 10);
     const admin = await User.create({
-      username: 'Admin User',
+      name: 'Admin User',
       email: 'admin@shop-ez.com',
       password: adminPassword,
-      usertype: 'ADMIN'
+      role: 'ADMIN'
     });
     console.log('Admin user created:', admin.email);
 
     // Create regular user
     const userPassword = await bcrypt.hash('user123', 10);
     const user = await User.create({
-      username: 'Test User',
+      name: 'Test User',
       email: 'user@shop-ez.com',
       password: userPassword,
-      usertype: 'USER'
+      role: 'USER'
     });
     console.log('Test user created:', user.email);
 

@@ -5,7 +5,7 @@ const User = require('../models/User');
 // Register user
 exports.register = async (req, res) => {
   try {
-    const { username, email, password, usertype } = req.body;
+    const { name, email, password, role } = req.body;
     
     let user = await User.findOne({ email });
     if (user) {
@@ -14,15 +14,15 @@ exports.register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     user = new User({ 
-      username, 
+      name, 
       email, 
       password: hashedPassword,
-      usertype: usertype || 'USER'
+      role: role || 'USER'
     });
     await user.save();
 
     const token = jwt.sign(
-      { userId: user._id, usertype: user.usertype },
+      { userId: user._id, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
@@ -32,9 +32,9 @@ exports.register = async (req, res) => {
       token, 
       user: { 
         id: user._id, 
-        username, 
+        name, 
         email, 
-        usertype: user.usertype 
+        role: user.role 
       } 
     });
   } catch (err) {
@@ -59,7 +59,7 @@ exports.login = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { userId: user._id, usertype: user.usertype },
+      { userId: user._id, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: '7d' }
     );
@@ -69,9 +69,9 @@ exports.login = async (req, res) => {
       token, 
       user: { 
         id: user._id, 
-        username: user.username, 
+        name: user.name, 
         email, 
-        usertype: user.usertype 
+        role: user.role 
       } 
     });
   } catch (err) {

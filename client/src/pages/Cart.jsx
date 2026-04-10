@@ -69,7 +69,7 @@ function Cart() {
         <tbody>
           {cart.map(item => (
             <tr key={item._id}>
-              <td>{item.name}</td>
+              <td>{item.title}</td>
               <td>${item.price}</td>
               <td>
                 <Form.Control

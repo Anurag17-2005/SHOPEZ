@@ -4,5 +4,12 @@ node_modules/
 *.log
 build/
 dist/
-SS
-.vscode
+
+# Exclude unnecessary folders
+SS/
+.vscode/
+
+# Exclude markdown files except README.md
+MANDATORY_REQUIREMENTS_CHECKLIST.md
+QUICK_START.md
+VITE_MIGRATION_COMPLETE.md
